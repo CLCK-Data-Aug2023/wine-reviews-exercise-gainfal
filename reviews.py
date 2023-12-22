@@ -1,21 +1,11 @@
 import pandas as pd
-
-def create_summary(input_file_path, output_file_path):
-    # Read the CSV file
-    df = pd.read_csv(input_file_path, compression='zip')
-
-    # Group data by country and calculate count and mean
-    summary_data = df.groupby('country').agg({'points': ['count', 'mean']}).reset_index()
-
-    # Rename columns for better clarity
-    summary_data.columns = ['country', 'count', 'points']
-
-    # Sort the data by count in descending order
-    summary_data = summary_data.sort_values(by='count', ascending=False)
-
-    # Write the summary data to a new CSV file
-    summary_data.to_csv(output_file_path, index=False)
-
-    print(f"Summary data written to {output_file_path}")
+reviews = pd.read_csv("data/winemag-data-130k-v2.csv")
+reviews_per_country = reviews.country.value_counts()
+country_mean_ratings = reviews.groupby('country').points.mean()
+reviews_df =  pd.DataFrame({
+                            "count":reviews_per_country,
+                             "points":round(country_mean_ratings,1)})
+reviews_sort_df=reviews_df.sort_values(by='count',ascending=False)
+reviews_sort_df.to_csv("data/reviews-per-country.csv",index=True)
 
 
