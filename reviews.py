@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Read the CSV file
-file_path = 'data/winemag-data-130k-v2.csv.zip'
+file_path = 'CLCK-Data-Aug2023/wine-reviews-exercise-gainfal/data/winemag-data-130k-v2.csv.zip'
 df = pd.read_csv(file_path, compression='zip')
 
 # Group data by country and calculate count and mean
